@@ -1,0 +1,17 @@
+{{- /*
+  Prints the native resolution of the widest connected monitor, e.g. "2560x1080".
+  Reads /sys/class/drm directly: works on Wayland and X11, needs no extra tools.
+  Optional manual override in ~/.config/chezmoi/chezmoi.toml:
+    [data]
+    screenResolution = "1920x1080"
+*/ -}}
+{{- if hasKey . "screenResolution" -}}
+{{- .screenResolution -}}
+{{- else -}}
+{{- $detected := output "sh" "-c" `
+for d in /sys/class/drm/card*-*; do
+  [ "$(cat "$d/status" 2>/dev/null)" = connected ] && head -n1 "$d/modes" 2>/dev/null
+done | grep -oE '^[0-9]+x[0-9]+' | sort -t x -k1,1nr -k2,2nr | head -n1
+true` | trim -}}
+{{- $detected | default "1920x1080" -}}
+{{- end -}}

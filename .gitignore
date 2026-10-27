@@ -1,0 +1,8 @@
+# OBS: stream key and streaming-only settings
+**/obs-studio/basic/profiles/*/service.json
+**/obs-studio/basic/profiles/*/streamEncoder.json
+
+# Editors / OS
+.DS_Store
+*.swp
+*~

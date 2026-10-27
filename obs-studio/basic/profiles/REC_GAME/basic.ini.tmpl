@@ -1,0 +1,84 @@
+{{- $res := includeTemplate "screen-resolution" . | trim | splitList "x" -}}
+[General]
+Name=REC_GAME
+
+[Output]
+Mode=Advanced
+FilenameFormatting=%CCYY-%MM-%DD %hh-%mm-%ss
+DelayEnable=false
+DelaySec=20
+DelayPreserve=true
+Reconnect=true
+RetryDelay=2
+MaxRetries=25
+BindIP=default
+IPFamily=IPv4+IPv6
+NewSocketLoopEnable=false
+LowLatencyEnable=false
+
+[Stream1]
+IgnoreRecommended=false
+EnableMultitrackVideo=false
+MultitrackVideoMaximumAggregateBitrateAuto=true
+MultitrackVideoMaximumVideoTracksAuto=true
+
+[AdvOut]
+ApplyServiceSettings=true
+UseRescale=false
+TrackIndex=1
+VodTrackIndex=2
+Encoder=obs_x264
+RecType=Standard
+RecFilePath={{ .chezmoi.homeDir }}/Videos/obs
+RecFormat2=mkv
+RecUseRescale=false
+RecTracks=15
+RecEncoder=obs_nvenc_hevc_tex
+RecAudioEncoder=ffmpeg_pcm_s16le
+AudioEncoder=ffmpeg_aac
+FLVTrack=1
+StreamMultiTrackAudioMixes=1
+Track1Bitrate=320
+Track2Bitrate=320
+Track3Bitrate=320
+Track4Bitrate=160
+Track5Bitrate=160
+Track6Bitrate=160
+RecSplitFile=false
+RecSplitFileType=Manual
+RecSplitFileTime=15
+RecSplitFileSize=2048
+RecRB=true
+RecRBTime=120
+RecRBSize=2048
+RecFileNameWithoutSpace=true
+
+[Video]
+BaseCX={{ index $res 0 }}
+BaseCY={{ index $res 1 }}
+OutputCX={{ index $res 0 }}
+OutputCY={{ index $res 1 }}
+FPSType=0
+FPSCommon=60
+ScaleType=bicubic
+ColorFormat=NV12
+ColorSpace=709
+ColorRange=Partial
+AutoRemux=true
+
+[Audio]
+MonitoringDeviceId=default
+MonitoringDeviceName=По умолчанию
+SampleRate=48000
+ChannelSetup=Stereo
+MeterDecayRate=23.53
+PeakMeterType=0
+
+[Hotkeys]
+OBSBasic.StartStreaming={"bindings":[]}
+OBSBasic.StopStreaming={"bindings":[]}
+OBSBasic.StartRecording={"bindings":[]}
+OBSBasic.StopRecording={"bindings":[]}
+OBSBasic.StartReplayBuffer={"bindings":[{"control":true,"alt":true,"key":"OBS_KEY_BACKSLASH"}]}
+OBSBasic.StopReplayBuffer={"bindings":[{"control":true,"alt":true,"key":"OBS_KEY_BACKSLASH"}]}
+ReplayBuffer={"ReplayBuffer.Save":[{"shift":true,"control":true,"key":"OBS_KEY_BACKSLASH"}]}
