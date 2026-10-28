@@ -1,0 +1,21 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+# Re-runs whenever .chezmoidata/packages.yaml changes. Only installs, never removes.
+set -eu
+
+command -v pacman >/dev/null || exit 0
+
+sudo pacman -S --needed --noconfirm \
+{{- range .packages.repo }}
+  {{ . }} \
+{{- end }}
+  ;
+
+command -v yay >/dev/null || sudo pacman -S --needed --noconfirm yay
+
+yay -S --needed --noconfirm \
+{{- range .packages.aur }}
+  {{ . }} \
+{{- end }}
+  ;
+{{ end -}}

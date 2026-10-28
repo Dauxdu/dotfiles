@@ -1,0 +1,64 @@
+# Packages installed on every machine on top of a fresh CachyOS install.
+# Kernel, drivers, firmware and KDE come from the installer and are hardware-specific.
+packages:
+  # repos (core/extra/multilib/cachyos)
+  repo:
+    # cli / dev
+    - chezmoi
+    - cmake
+    - npm
+    - zip
+    - ntfs-3g
+    # devops
+    - ansible
+    - ansible-lint
+    - docker
+    - docker-buildx
+    - docker-compose
+    - openbao
+    - terraform
+    - yamllint
+    # network
+    - networkmanager-l2tp
+    - nmap
+    - openbsd-netcat
+    - strongswan
+    - traceroute
+    - wireguard-tools
+    - wireshark-qt
+    # security
+    - bitwarden
+    - pam-u2f
+    # gui apps
+    - dbeaver
+    - filezilla
+    - localsend
+    - mattermost-desktop
+    - obsidian
+    - obs-studio
+    - qbittorrent
+    - remmina
+    - syncthing
+    - telegram-desktop
+    - thunderbird
+    - ungoogled-chromium-bin
+    - vesktop-bin
+    - virtualbox
+    # media / graphics
+    - audacity
+    - darktable
+    - gimp
+    - vlc
+    # office / latex
+    - libreoffice-fresh
+    - libreoffice-extension-texmaths
+    - texlive-fontsextra
+    - texlive-langcyrillic
+    - texlive-latexrecommended
+    - texlive-mathscience
+  # AUR (via yay)
+  aur:
+    - v2rayn
+    - visual-studio-code-bin
+    - win11fonts-auto
+    - yubico-authenticator
