@@ -1,1 +1,5 @@
+{{- if eq (includeTemplate "gpu-vendor" . | trim) "nvidia" -}}
 {"rate_control":"CQP","cqp":20,"preset":"p5","tune":"hq","multipass":"disabled","profile":"main","lookahead":false,"bf":2,"bframe_ref_mode":0,"keyint_sec":1}
+{{- else -}}
+{"rate_control":"CQP","qp":20,"bf":0,"keyint_sec":1}
+{{- end }}

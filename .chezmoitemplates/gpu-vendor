@@ -1,0 +1,13 @@
+{{- /*
+  Prints "nvidia" if an NVIDIA GPU is present, otherwise "vaapi" (AMD/Intel).
+  Reads PCI vendor IDs from /sys/class/drm: no extra tools needed.
+  Optional manual override in ~/.config/chezmoi/chezmoi.toml:
+    [data]
+    gpuVendor = "vaapi"
+*/ -}}
+{{- if hasKey . "gpuVendor" -}}
+{{- .gpuVendor -}}
+{{- else -}}
+{{- $vendors := output "sh" "-c" `cat /sys/class/drm/card[0-9]*/device/vendor 2>/dev/null; true` -}}
+{{- if contains "0x10de" $vendors }}nvidia{{ else }}vaapi{{ end -}}
+{{- end -}}

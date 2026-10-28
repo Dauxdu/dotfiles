@@ -1,4 +1,5 @@
 {{- $res := includeTemplate "screen-resolution" . | trim | splitList "x" -}}
+{{- $gpu := includeTemplate "gpu-vendor" . | trim -}}
 [General]
 Name=REC_GAME
 
@@ -33,7 +34,7 @@ RecFilePath={{ .chezmoi.homeDir }}/Videos/obs
 RecFormat2=mkv
 RecUseRescale=false
 RecTracks=15
-RecEncoder=obs_nvenc_hevc_tex
+RecEncoder={{ if eq $gpu "nvidia" }}obs_nvenc_hevc_tex{{ else }}hevc_ffmpeg_vaapi_tex{{ end }}
 RecAudioEncoder=ffmpeg_pcm_s16le
 AudioEncoder=ffmpeg_aac
 FLVTrack=1
